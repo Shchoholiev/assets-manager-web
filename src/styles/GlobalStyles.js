@@ -12,17 +12,19 @@ const GlobalStyles = createGlobalStyle`
     --white: #FFFFFF;
 
     --teal: #63B0AF;
+    --dark-teal: #599E9D;
     --yellow: #E7D1A1;
     --pink: #FF32C6;
     --blue: #3FA4FF;
     --purple: #C478FF;
     --red: #CF1C1C;
-
+    
     --border-radius-s: 7px;
     --border-radius-m: 8px;
     --border-radius-l: 20px;
     --border-radius-xl: 30px;
-
+    
+    --teal-shadow: rgba(99, 176, 175, 0.6)    ;
 
 }
 *,
