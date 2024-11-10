@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import EmailConfirm from "./pages/EmailConfirm";
 import NewPasswordConfirm from "./pages/NewPasswordConfirm";
+import { useMediaQuery } from "react-responsive";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,8 @@ const queryClient = new QueryClient({
   },
 });
 function App() {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
@@ -33,10 +36,16 @@ function App() {
             <Route index element={<Navigate replace to="/assets" />} />
             <Route path="assets" element={<Assets />} />
             <Route path="users/verify" element={<EmailConfirm />} />
-            <Route path="users/password-reset" element={<NewPasswordConfirm />} />
+            <Route
+              path="users/password-reset"
+              element={<NewPasswordConfirm />}
+            />
             <Route path="*" element={<PageNotFound />} />
 
-            <Route element={<ProtectedRoute />}></Route>
+            <Route element={<ProtectedRoute />}>
+            <Route path="user" element={<Assets />} />
+            
+            </Route>
           </Route>
 
           <Route path="login" element={<Login />} />
@@ -57,10 +66,10 @@ function App() {
             duration: 5000,
           },
           style: {
-            fontSize: "16px",
+            fontSize: !isMobile ? "16px" : "12px",
             maxWidth: "500px",
-            padding: "16px 24px",
-            marginLeft: "70%",
+            padding: !isMobile ? "16px 24px" : "12px 20px",
+            marginLeft: !isMobile ? "70%" : "40%",
             backgroundColor: "var(--gray-600)",
             color: "var(--gray-200)",
           },

@@ -5,7 +5,7 @@ import Spinner from "../ui/Spinner";
 import { confirmEmail as confirmEmailApi } from "../services/apiAuth";
 import cube from "/cube.svg";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+// const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +16,14 @@ const Container = styled.div`
   align-items: center;
   font-size: 30px;
   font-weight: bolder;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    height: 40rem;
+  }
+  @media (max-width: 425px) {
+    font-size: 18px;
+    height: 35rem;
+  }
 `;
 const PSuccess = styled.p`
   color: var(--teal);
@@ -27,13 +35,13 @@ function EmailConfirm() {
   const [status, setStatus] = useState("pending");
   const searchParams = new URLSearchParams(useLocation().search);
   const token = searchParams.get("token");
-  const hasFetched = useRef(false); 
+  const hasFetched = useRef(false);
 
   useEffect(() => {
-    if (hasFetched.current) return; 
+    if (hasFetched.current) return;
 
     if (token) {
-      hasFetched.current = true; 
+      hasFetched.current = true;
       confirmEmailApi(token)
         .then(() => {
           setStatus("success");
@@ -45,7 +53,7 @@ function EmailConfirm() {
       setStatus("error");
     }
   }, [token]);
-  
+
   return (
     <Container>
       {status === "pending" && <Spinner size="70" color="--teal" />}

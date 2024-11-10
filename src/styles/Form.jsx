@@ -7,5 +7,11 @@ const Form = styled.form`
   @media (max-width: 1024px) {
     width: 100%;
   }
+  @media (max-width: 768px) {
+    width: 60%;
+  }
+  @media (max-width: 425px) {
+    width: 80%;
+  }
 `;
 export default Form;

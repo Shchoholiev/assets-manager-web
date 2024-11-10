@@ -9,8 +9,23 @@ import { useResetPassword } from "./useResetPassword";
 const ResetFormLayout = styled.div`
   display: grid;
   grid-gap: 1.8rem;
-  width: 20%;
+  width: 25%;
   text-align: center;
+  @media (max-width: 1440px) {
+    font-size: 15px;
+    width: 30%
+  }
+  @media (max-width: 1024px) {
+    width: 40%
+  }
+  @media (max-width: 768px) {
+    width: 55%
+  }
+  @media (max-width: 425px) {
+    font-size: 13px;
+    width: 80%
+  }
+  
 `;
 
 const StyledLink = styled(Link)`

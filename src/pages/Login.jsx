@@ -1,22 +1,13 @@
-import styled from "styled-components";
-import LoginLogo from "../components/authentication/LoginLogo";
 import LoginForm from "../components/authentication/LoginForm";
+import AuthLayout from "../styles/AuthLayout";
+import AuthLogo from "../components/authentication/AuthLogo";
 
-const LoginLayout = styled.main`
-  min-height: 90vh;
-  width: 90vw;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  justify-items: center;
-`;
 function Login() {
   return (
-    <LoginLayout>
-      <LoginLogo />
+    <AuthLayout>
+      <AuthLogo type='login' />
       <LoginForm />
-    </LoginLayout>
+    </AuthLayout>
   );
 }
 

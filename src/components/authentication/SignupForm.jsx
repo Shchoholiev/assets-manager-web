@@ -13,6 +13,9 @@ const P = styled.p`
   @media (max-width: 1024px) {
     font-size: 20px;
   }
+  @media (max-width: 425px) {
+    font-size: 18px;
+  }
 `;
 
 function SignupForm() {

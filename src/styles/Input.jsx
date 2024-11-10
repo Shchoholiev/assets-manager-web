@@ -7,14 +7,13 @@ const Input = styled.input`
   padding: 1rem 1.2rem;
   font-size: 15px;
   color: var(--black);
-  &::placeholder{
+  &::placeholder {
     color: var(--black);
   }
   @media (max-width: 1024px) {
     padding: 0.8rem 1rem;
     font-size: 14px;
   }
-
 `;
 
-export default Input
+export default Input;

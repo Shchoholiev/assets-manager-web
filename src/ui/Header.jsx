@@ -5,30 +5,54 @@ import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../components/authentication/useUser";
 import UserData from "./UserData";
+import { useMediaQuery } from "react-responsive";
 
 const StyledHeader = styled.div`
-  margin-top: 1%;
+  margin-top: 1rem;
   display: flex;
   width: 100vw;
   justify-self: center;
   justify-content: space-evenly;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 90vw;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & > *:nth-child(3) {
+      flex-basis: 100%;
+    }
+  }
+
+  @media (max-width: 425px) {
+    width: 95vw;
+  }
+  
 `;
 function Header() {
-  const {user, isPending} = useUser()
+  const { user, isPending } = useUser();
   const navigate = useNavigate();
-  if(isPending) return;
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  if (isPending) return;
   return (
     <StyledHeader>
       <Logo />
-      <SearchInput />
-     { user ? <UserData /> : <Button
-        variation="primary"
-        width="10%"
-        onClick={() => navigate("/login")}
-      >
-        Log In
-      </Button>}
+      {!isMobile && <SearchInput />}
+      {user ? (
+        <UserData />
+      ) : (
+        <Button
+          variation="primary"
+          width={!isMobile ? "10%" : "25%"}
+          onClick={() => navigate("/login")}
+        >
+          Log In
+        </Button>
+      )}
+
+      {isMobile && <SearchInput />}
     </StyledHeader>
   );
 }

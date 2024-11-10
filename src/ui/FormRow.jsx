@@ -5,6 +5,12 @@ const StyledFormRow = styled.div`
   align-items: center;
   grid-template-columns: 0.6fr 0.4fr;
   grid-gap: 2%;
+  @media (max-width: 1024px) {
+    grid-template-columns: 0.9fr;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Error = styled.span`
