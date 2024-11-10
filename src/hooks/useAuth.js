@@ -56,8 +56,9 @@ export function useAuth() {
     }
   };
   const getCurrentUser = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
     const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
+    if (!accessToken || !refreshToken) {
       return null
     }
 
@@ -79,8 +80,9 @@ export function useAuth() {
 
   const logout = () => {
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("accessToken");
     queryClient.removeQueries();
-    navigate("/logout");
+    navigate("/");
   };
 
   return { getCurrentUser, refreshAccessToken, decodeToken, logout };

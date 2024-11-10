@@ -3,10 +3,15 @@ import cube from "/cube.svg";
 import ring from "/ring.svg";
 import { Link } from "react-router-dom";
 
-const SignupLogoLayout = styled.div`
+const AuthLogoLayout = styled.div`
   display: grid;
   grid-template-columns: 0.3fr 0.7fr;
   grid-gap: 5%;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
 `;
 
 const LogoLayers = styled.div`
@@ -20,7 +25,7 @@ const H1 = styled.h1`
     font-size: 3.2rem;
   }
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 `;
 const H2 = styled.h2`
@@ -38,6 +43,9 @@ const P = styled.p`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
+  @media (max-width: 425px) {
+    font-size: 0.9rem;
+  }
 `;
 const Cube = styled.img`
   align-self: center;
@@ -45,7 +53,7 @@ const Cube = styled.img`
     width: 8rem;
   }
   @media (max-width: 768px) {
-    width: 5rem;
+    width: 7rem;
   }
 `;
 const Ring = styled.img`
@@ -53,7 +61,7 @@ const Ring = styled.img`
     width: 18rem;
   }
   @media (max-width: 768px) {
-    width: 14rem;
+    display: none;
   }
 `;
 const StyledLink = styled(Link)`
@@ -64,22 +72,35 @@ const StyledLink = styled(Link)`
     transition: text-shadow 300ms ease;
   }
 `;
-function SignupLogo() {
+function AuthLogo({type}) {
+  const signup = type === "signup";
+  const login = type === "login";
+
   return (
-    <SignupLogoLayout>
+    <AuthLogoLayout>
       <Cube src={cube} alt="cube" />
       <LogoLayers>
         <Ring src={ring} alt="ring" />
-        <H1>Sign up to</H1>
+        {signup && <H1>Sign up to</H1>}
+        {login && <H1>Log in to</H1>}
         <H2>SNIP&KEEP</H2>
-        <P>
-          If you already have an account
-          <br /> You can
-          <StyledLink to="/login"> Log in here!</StyledLink>
-        </P>
+        {login && (
+          <P>
+            If you do not have an account
+            <br /> You can
+            <StyledLink to="/signup"> Register here!</StyledLink>
+          </P>
+        )}
+        {signup && (
+          <P>
+            If you already have an account
+            <br /> You can
+            <StyledLink to="/login"> Log in here!</StyledLink>
+          </P>
+        )}
       </LogoLayers>
-    </SignupLogoLayout>
+    </AuthLogoLayout>
   );
 }
 
-export default SignupLogo;
+export default AuthLogo;

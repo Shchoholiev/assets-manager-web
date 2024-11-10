@@ -30,6 +30,11 @@ const Button = styled.button`
   font-weight: bolder;
   width: ${(props) => props.width || 'auto'}; 
   ${(props) => variations[props.variation]}
+
+  @media (max-width: 425px) {
+   font-size: 13px;
+    
+  }
   
 `;
 export default Button;

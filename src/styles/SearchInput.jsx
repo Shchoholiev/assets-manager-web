@@ -12,11 +12,24 @@ const StyledSearchInput = styled.input`
   &::placeholder {
     color: var(--gray-200);
   }
+
+  @media (max-width: 1024px) {
+    width: 40vw;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  @media (max-width: 425px) {
+    font-size: 13px;
+  }
+  @media (max-width: 320px) {
+    font-size: 12px;
+
+  }
 `;
 const Container = styled.div`
   position: relative;
   display: flex;
-  justify-content: center;
   justify-content: end;
 `;
 const StyledSearchIcon = styled(HiOutlineSearch)`

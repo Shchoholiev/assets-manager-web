@@ -9,6 +9,10 @@ const Container = styled.div`
   text-align: end;
   color: var(--teal);
   font-weight: bolder;
+  @media (max-width: 425px) {
+  gap: 0.5rem;
+    
+  }
 `;
 const Avatar = styled.div`
   width: 55px;
@@ -21,11 +25,29 @@ const Avatar = styled.div`
   color: var(--teal);
   font-weight: bolder;
   background-color: var(--yellow);
+  @media (max-width: 425px) {
+    width: 45px;
+    height: 45px;
+    font-size: 15px;
+  }
+  @media (max-width: 320px) {
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+  }
 `;
 const StyledLink = styled(Link)`
   &:hover {
     color: var(--yellow);
     transition: ease-in-out 300ms;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 15px;
+  }
+  @media (max-width: 320px) {
+    font-size: 12px;
+
   }
 `;
 function UserData() {
