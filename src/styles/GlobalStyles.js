@@ -33,9 +33,14 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-
   transition: background-color 0.3s, border 0.3s;
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+@media (prefers-color-scheme: dark) {
 body {
   font-family: "Poppins", sans-serif;
   color: var(--gray-200);
@@ -45,7 +50,7 @@ body {
   line-height: 1.5;
   font-size: 18px;
 }
-
+}
 input,
 button,
 textarea,

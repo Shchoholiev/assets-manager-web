@@ -1,11 +1,11 @@
 import LoginForm from "../components/authentication/LoginForm";
-import AuthLayout from "../styles/AuthLayout";
+import AuthLayout from "../ui/AuthLayout";
 import AuthLogo from "../components/authentication/AuthLogo";
 
 function Login() {
   return (
     <AuthLayout>
-      <AuthLogo type='login' />
+      <AuthLogo type="login" />
       <LoginForm />
     </AuthLayout>
   );

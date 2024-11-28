@@ -7,10 +7,14 @@ import Spinner from "./Spinner";
 const StyledAppLayout = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
-  width: 95vw;
+  width: 90vw;
+  justify-self: center;
+  margin-bottom: 3rem;
   @media (max-width: 1024px) {
-    width: 100vw;
+    width: 95vw;
   }
+
+
 `;
 const FullPage = styled.div`
   height: 100vh;

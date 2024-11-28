@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../styles/Button";
-import SearchInput from "../styles/SearchInput";
+import SearchInput from "./SearchInput";
 import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../components/authentication/useUser";
@@ -10,12 +10,12 @@ import { useMediaQuery } from "react-responsive";
 const StyledHeader = styled.div`
   margin-top: 1rem;
   display: flex;
-  width: 100vw;
+  width: 100%;
   justify-self: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+
   @media (max-width: 768px) {
-    width: 90vw;
     gap: 1.8rem;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -24,11 +24,6 @@ const StyledHeader = styled.div`
       flex-basis: 100%;
     }
   }
-
-  @media (max-width: 425px) {
-    width: 95vw;
-  }
-  
 `;
 function Header() {
   const { user, isPending } = useUser();

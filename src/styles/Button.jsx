@@ -1,26 +1,38 @@
 import styled, { css } from "styled-components";
 
 const variations = {
-    auth: css`
-        background-color: var(--teal);
-        box-shadow: 0px 0px 30px var(--teal-shadow);
-        margin-top: 2%;
-        &:hover{
-            background-color: var(--dark-teal);
-            color: var(--yellow);
-            transition: ease-in-out 300ms;
-        }
-    `,
-      primary: css`
-      background-color: var(--teal);
+  auth: css`
+    background-color: var(--teal);
+    box-shadow: 0px 0px 30px var(--teal-shadow);
+    margin-top: 2%;
+    &:hover {
+      background-color: var(--dark-teal);
       color: var(--yellow);
-      &:hover{
-          box-shadow: 0px 0px 20px var(--teal-shadow);
-          background-color: var(--dark-teal);
-          transition: ease-in-out 300ms;
-      }
-  `
-}
+      transition: ease-in-out 300ms;
+    }
+  `,
+  primary: css`
+    background-color: var(--teal);
+    color: var(--yellow);
+    &:hover {
+      box-shadow: 0px 0px 20px var(--teal-shadow);
+      background-color: var(--dark-teal);
+      transition: ease-in-out 300ms;
+    }
+  `,
+  icon: css`
+    background: none;
+    color: var(--gray-100);
+    &:hover {
+      color: var(--white);
+      transition: ease-in-out 300ms;
+    }
+    & svg{
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+  `,
+};
 const Button = styled.button`
   border: none;
   color: var(--black);
@@ -28,13 +40,11 @@ const Button = styled.button`
   padding: 0.8rem;
   font-size: 15px;
   font-weight: bolder;
-  width: ${(props) => props.width || 'auto'}; 
+  width: ${(props) => props.width || "auto"};
   ${(props) => variations[props.variation]}
 
   @media (max-width: 425px) {
-   font-size: 13px;
-    
+    font-size: 13px;
   }
-  
 `;
 export default Button;

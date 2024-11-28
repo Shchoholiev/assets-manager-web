@@ -14,7 +14,7 @@ const AuthLayout = styled.main`
     grid-gap: 5%;
   }
   @media (max-width: 768px) {
-    margin-top: 20%;
+    margin-top: 7%;
     min-height: 50vh;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: 1fr;
