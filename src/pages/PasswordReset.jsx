@@ -8,20 +8,23 @@ const PasswordResetLayout = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  @media (max-width: 768px) {
+    min-height: 60vh;
+  }
 `;
 
 const Cone = styled.img`
-    margin-top: 7rem;
+  margin-top: 7rem;
 
   @media (max-width: 1024px) {
-    margin-top: 10rem;
     width: 16rem;
   }
   @media (max-width: 768px) {
-    width: 14rem;
+    width: 13rem;
   }
   @media (max-width: 425px) {
-    width: 12.5rem;
+    margin-top: 5rem;
+    width: 10rem;
   }
 `;
 
