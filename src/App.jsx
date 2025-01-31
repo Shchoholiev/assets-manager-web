@@ -13,6 +13,9 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import EmailConfirm from "./pages/EmailConfirm";
 import NewPasswordConfirm from "./pages/NewPasswordConfirm";
 import { useMediaQuery } from "react-responsive";
+import ProjectStartup from "./pages/ProjectStartup";
+import ProjectCompile from "./pages/ProjectCompile";
+import AssetPage from "./pages/AssetPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +38,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="/assets" />} />
             <Route path="assets" element={<Assets />} />
+            <Route path="assets/:id" element={<AssetPage />} />
             <Route path="users/verify" element={<EmailConfirm />} />
             <Route
               path="users/password-reset"
@@ -44,6 +48,8 @@ function App() {
 
             <Route element={<ProtectedRoute />}>
             <Route path="user" element={<Assets />} />
+            <Route path="project/start" element={<ProjectStartup />} />
+            <Route path="project/:id/compile" element={<ProjectCompile />} />
             
             </Route>
           </Route>

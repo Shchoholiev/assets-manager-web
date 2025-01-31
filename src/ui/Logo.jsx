@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logo from "/logo.svg";
+import { useNavigate } from "react-router-dom";
 const StyledLogo = styled.div`
   display: flex;
   flex-direction: row;
@@ -9,6 +10,7 @@ const StyledLogo = styled.div`
 const P = styled.p`
   color: var(--teal);
   font-weight: bolder;
+  cursor: pointer;
   @media (max-width: 425px) {
     font-size: 15px;
   }
@@ -26,10 +28,11 @@ const Img = styled.img`
   }
 `;
 function Logo() {
+  const navigate = useNavigate()
   return (
     <StyledLogo>
       <Img src={logo} alt="Logo" />
-      <P>SNIP&KEEP</P>
+      <P onClick={()=> navigate("/assets")}>SNIP&KEEP</P>
     </StyledLogo>
   );
 }

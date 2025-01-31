@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { useUser } from "../components/authentication/useUser";
 import Spinner from "./Spinner";
+import Menu from "./Menu";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -24,7 +25,7 @@ const FullPage = styled.div`
 `;
 
 function AppLayout() {
-  const { isPending } = useUser();
+  const { isPending, user } = useUser();
   if (isPending)
     return (
       <FullPage>
@@ -35,6 +36,7 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
+      {user && <Menu />}
       <Outlet />
     </StyledAppLayout>
   );

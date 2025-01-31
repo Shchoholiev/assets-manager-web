@@ -87,13 +87,13 @@ function AssetsSidebar() {
               );
             }
           })}
-          <Modal.Open opens="delete">
+          <Modal.Open opens="filter">
             <FilterButton variation="icon">
               <HiOutlineAdjustmentsHorizontal />
             </FilterButton>
           </Modal.Open>
         </FilterContainer>
-        <Modal.Window name="delete">
+        <Modal.Window name="filter">
           <AssetsSidebarContainer>
             {tags.items.map((tag) => {
               const isActive = searchParams.getAll("tagIds").includes(tag.id);

@@ -32,6 +32,14 @@ const variations = {
       height: 1.4rem;
     }
   `,
+  secondary: css`
+    background-color: var(--gray-600);
+    color: var(--black);
+    &:hover {
+      background-color: var(--gray-300);
+      transition: ease-in-out 300ms;
+    }
+  `
 };
 const Button = styled.button`
   border: none;
