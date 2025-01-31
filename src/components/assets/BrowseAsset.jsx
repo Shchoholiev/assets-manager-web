@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Asset from "../../ui/Asset";
 import Tag from "../../ui/Tag";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 
 const BrowseAssetContainer = styled.div`
   display: flex;
@@ -18,8 +19,12 @@ const BrowseAssetContainer = styled.div`
 const AssetInfo = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1rem;
   padding-bottom: 1rem;
+  @media (max-width: 425px) {
+    gap: 0.5rem;
+  }
 `;
 const UserName = styled.p`
   font-weight: bolder;
@@ -39,18 +44,19 @@ const AssetName = styled.h2`
 `;
 function BrowseAsset({ asset }) {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const navigate = useNavigate();
 
   return (
-    <BrowseAssetContainer>
+    <BrowseAssetContainer onClick={() => navigate(`${asset.id}`)}>
       <AssetName>{asset.name}</AssetName>
       <AssetInfo>
-        <UserName>by %NAME%</UserName>
+        <UserName>by {asset.user.name || "user"}</UserName>
         {asset.tags.map((tag, index) => (
           <Tag name={tag.name} key={tag.id} isMain={index === 0} />
         ))}
       </AssetInfo>
       <Asset
-        language={asset.tags[0].name.toLowerCase()}
+        language={asset.language.toLowerCase()}
         text={asset.primaryCodeFile.text}
         height={isMobile ? "24vh" : "30vh"}
         readOnly="true"

@@ -7,7 +7,7 @@ function Asset({ language, text, height, readOnly = false }) {
   return (
     <Editor
       options={{
-        fontSize: isMobile ? 12: 14,
+        fontSize: isMobile ? 12 : 14,
         minimap: {
           enabled: false,
         },

@@ -1,6 +1,5 @@
-import { HiArrowLongLeft } from "react-icons/hi2";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import GoBackButton from "../ui/GoBackButton";
 
 const Container = styled.div`
   display: flex;
@@ -12,19 +11,12 @@ const Container = styled.div`
   font-size: 30px;
   font-weight: bolder;
 `;
-const StyledLink = styled(Link)`
-    font-size: 17px;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    color: var(--yellow);
-    cursor: pointer;
-`
+
 function PageNotFound() {
   return (
     <Container>
       <p>404 Page not found</p>
-      <StyledLink to={-1}><HiArrowLongLeft />Go back </StyledLink>
+      <GoBackButton />
     </Container>
   );
 }
