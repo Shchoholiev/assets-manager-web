@@ -40,7 +40,7 @@ html, body {
   padding: 0;
   overflow-x: hidden;
 }
-@media (prefers-color-scheme: dark) {
+
 body {
   font-family: "Poppins", sans-serif;
   color: var(--gray-200);
@@ -50,7 +50,7 @@ body {
   line-height: 1.5;
   font-size: 18px;
 }
-}
+
 input,
 button,
 textarea,
