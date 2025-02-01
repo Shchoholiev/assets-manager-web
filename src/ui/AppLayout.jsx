@@ -9,7 +9,7 @@ const StyledAppLayout = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   width: 90vw;
-  justify-self: center;
+  margin: 0 auto;
   margin-bottom: 3rem;
   @media (max-width: 1024px) {
     width: 95vw;
