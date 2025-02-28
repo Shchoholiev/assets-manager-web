@@ -44,7 +44,6 @@ html, body {
 body {
   font-family: "Poppins", sans-serif;
   color: var(--gray-200);
-  background-color: var(--black);
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;

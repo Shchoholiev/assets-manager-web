@@ -27,10 +27,11 @@ export function useAuth() {
       logout();
     }
     const data = await response.json();
+    localStorage.setItem("refreshToken", data.refreshToken)
+    localStorage.setItem("accessToken", data.accessToken)
     return data;
   };
-  const decodeToken = () => {
-    const accessToken = localStorage.getItem("accessToken");
+  const decodeToken = (accessToken = localStorage.getItem("accessToken")) => {
     try {
       const decodedData = jwtDecode(accessToken);
       const cleanedData = {
@@ -64,8 +65,7 @@ export function useAuth() {
 
     const user = decodeToken(accessToken);
     const currentTime = Math.floor(Date.now() / 1000);
-
-    if (user.exp < currentTime) {
+    if (user.exp < currentTime || typeof window !== "undefined") {
       try {
         const refreshedData = await refreshAccessToken();
         const refreshedUser = decodeToken(refreshedData.accessToken);

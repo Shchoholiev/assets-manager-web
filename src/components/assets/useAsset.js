@@ -1,18 +1,20 @@
+
+
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
 import { getAsset } from "../../services/apiAssets";
 
 export function useAsset() {
-  const [searchParams] = useSearchParams();
-  const id = !searchParams.get("id") ? null : searchParams.get("id");
+  const { id } = useParams(); 
 
   const {
     data: asset,
     isPending,
     error,
   } = useQuery({
-    queryKey: ["asset"],
+    queryKey: ["asset", id], 
     queryFn: () => getAsset({ id }),
+    enabled: !!id, 
   });
 
   return { asset, isPending, error };

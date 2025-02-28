@@ -19,6 +19,11 @@ const variations = {
       background-color: var(--dark-teal);
       transition: ease-in-out 300ms;
     }
+    &:disabled{
+      background-color: var(--gray-400);
+      color: var(--grey-100);
+      box-shadow: none;
+    }
   `,
   icon: css`
     background: none;
@@ -45,7 +50,7 @@ const Button = styled.button`
   border: none;
   color: var(--black);
   border-radius: var(--border-radius-m);
-  padding: 0.8rem;
+  padding: 0.6rem;
   font-size: 15px;
   font-weight: bolder;
   width: ${(props) => props.width || "auto"};

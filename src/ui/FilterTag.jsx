@@ -30,7 +30,7 @@ const StyledTag = styled.div.withConfig({
   }
 `;
 
-function FilterTag({ name, isPending, onClick, isActive = false }) {
+function FilterTag({ name, isPending = false, onClick, isActive = false }) {
   return (
     <StyledTag onClick={isPending ? undefined : onClick} isActive={isActive}>
       {name}

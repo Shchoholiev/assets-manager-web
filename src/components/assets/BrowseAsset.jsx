@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Asset from "../../ui/Asset";
 import Tag from "../../ui/Tag";
 import { useMediaQuery } from "react-responsive";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BrowseAssetContainer = styled.div`
   display: flex;
@@ -45,14 +45,17 @@ const AssetName = styled.h2`
 function BrowseAsset({ asset }) {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const navigate = useNavigate();
-
+  const location = useLocation();
   return (
-    <BrowseAssetContainer onClick={() => navigate(`${asset.id}`)}>
+    <BrowseAssetContainer
+      onClick={() => navigate(`${location.pathname}/${asset.id}`)}
+    >
       <AssetName>{asset.name}</AssetName>
       <AssetInfo>
-        <UserName>by {asset.user.name || "user"}</UserName>
+        <UserName>by {asset.userName || "user"}</UserName>
+        <Tag name={asset.language} isMain={true}/>
         {asset.tags.map((tag, index) => (
-          <Tag name={tag.name} key={tag.id} isMain={index === 0} />
+          <Tag name={tag.name} key={tag.id}/>
         ))}
       </AssetInfo>
       <Asset

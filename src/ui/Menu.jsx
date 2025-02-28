@@ -91,6 +91,8 @@ const MobileNavLink = styled(NavLink)`
 `;
 function Menu() {
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+  
+ 
   if (isMobile) {
     return (
       <Modal>
