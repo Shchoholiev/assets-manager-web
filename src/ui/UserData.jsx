@@ -54,14 +54,14 @@ function UserData() {
   const { user } = useUser();
   return (
     <Container>
-      {user.role === "User" ? (
+      {/* {user.role === "User" ? ( */}
         <StyledLink>
           CREATE OR JOIN
           <br /> COMPANY
         </StyledLink>
-      ) : (
+      {/* ) : (
         "Company Name"
-      )}
+      )} */}
       <Avatar>{user.name[0].toUpperCase()}</Avatar>
     </Container>
   );

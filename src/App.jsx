@@ -16,6 +16,7 @@ import { useMediaQuery } from "react-responsive";
 import ProjectStartup from "./pages/ProjectStartup";
 import ProjectCompile from "./pages/ProjectCompile";
 import AssetPage from "./pages/AssetPage";
+import EditPage from "./pages/EditPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,6 +39,10 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="/assets" />} />
             <Route path="assets" element={<Assets />} />
+            <Route path="/my-assets" element={<Assets />} />
+            <Route path="/my-assets/:id" element={<AssetPage />} />
+            <Route path="/my-assets/:id/edit" element={<EditPage />} />
+            <Route path="/company-assets" element={<Assets />} />
             <Route path="assets/:id" element={<AssetPage />} />
             <Route path="users/verify" element={<EmailConfirm />} />
             <Route

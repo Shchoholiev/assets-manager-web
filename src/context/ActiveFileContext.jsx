@@ -4,7 +4,7 @@ import { useAsset } from "../components/assets/useAsset";
 const ActiveFileContext = createContext();
 
 export function ActiveFileProvider({ children }) {
-  const { asset } = useAsset();
+    const { asset } = useAsset();
   const [activeFile, setActiveFile] = useState(asset.primaryCodeFile);
 
   return (

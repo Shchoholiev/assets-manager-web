@@ -29,16 +29,13 @@ function AssetInfo() {
   return (
     <InfoContainer>
       <Title>{asset.name}</Title>
-      <Author>by {asset.user || "user"}</Author>
+      <Author>by {asset.userName || "user"}</Author>
 
-      <Tag name={asset.tags[0].name} backgroundColor="var(--gray-600)" />
+      <Tag name={asset.language} backgroundColor="var(--gray-600)" />
       <Tags>
-        {asset.tags.map(
-          (tag, index) =>
-            index !== 0 && (
-              <Tag name={tag.name} key={tag.id} color="var(--gray-100)" />
-            )
-        )}
+        {asset.tags.map((tag) => (
+          <Tag name={tag.name} key={tag.id} color="var(--gray-100)" />
+        ))}
       </Tags>
       <p>{asset.description}</p>
     </InfoContainer>

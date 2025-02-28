@@ -1,7 +1,7 @@
 import Editor from "@monaco-editor/react";
 import { useMediaQuery } from "react-responsive";
 
-function Asset({ language, text, height, readOnly = false }) {
+function Asset({ language, text, height, readOnly = false, onChange }) {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   return (
@@ -24,6 +24,7 @@ function Asset({ language, text, height, readOnly = false }) {
       width="99%"
       height={height}
       value={text}
+      onChange={onChange}
       theme="custom"
       language={language}
     />

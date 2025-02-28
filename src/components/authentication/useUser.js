@@ -6,7 +6,7 @@ export function useUser() {
   const { isPending, data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
-    staleTime: Infinity,
+    refetchInterval: 10 * 60 * 1000,  
   });
   return { isPending, user };
 }

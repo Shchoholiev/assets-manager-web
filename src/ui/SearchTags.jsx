@@ -4,25 +4,15 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchInput = styled.input`
+  width: 100%;
   border: none;
   background-color: var(--gray-400);
   border-radius: var(--border-radius-s);
   padding: 0.6rem 1rem;
-  width: 50vw;
   font-size: 15px;
   color: var(--gray-200);
   &::placeholder {
     color: var(--gray-200);
-  }
-  &:disabled{
-    background-color: var(--gray-600);
-  }
-
-  @media (max-width: 1024px) {
-    width: 42vw;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
   }
   @media (max-width: 425px) {
     font-size: 13px;
@@ -43,31 +33,25 @@ const StyledSearchIcon = styled(HiOutlineSearch)`
 
   transform: translateY(-50%);
 `;
-function SearchInput() {
+function SearchTags() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const validPaths = ["/assets", "/my-assets", "/company-assets"];
-  const isDisabled = !validPaths.includes(location.pathname)
-  // Handle search input change
+  const [search, setSearch] = useState(searchParams.get("searchTags") || "");
   const handleSearchChange = (e) => {
-    
     const newSearch = e.target.value;
     setSearch(newSearch);
 
-    setSearchParams({ search: newSearch });
+    setSearchParams({ searchTags: newSearch });
   };
 
   return (
     <Container>
       <StyledSearchInput
-        placeholder="Search code assets..."
+        placeholder="Search tags..."
         value={search}
         onChange={handleSearchChange}
-        disabled={isDisabled}
       />
       <StyledSearchIcon />
     </Container>
   );
 }
-export default SearchInput;
+export default SearchTags;

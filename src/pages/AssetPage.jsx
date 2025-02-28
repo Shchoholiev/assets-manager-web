@@ -1,11 +1,14 @@
 import { useDefineMonacoTheme } from "../hooks/useDefineMonacoTheme";
-import Spinner from "../ui/Spinner";
 import styled from "styled-components";
 import AssetInfo from "../components/assets/AssetInfo";
 import CodeComponent from "../components/assets/CodeComponent";
 import { useAsset } from "../components/assets/useAsset";
 import GoBackButton from "../ui/GoBackButton";
 import { ActiveFileProvider } from "../context/ActiveFileContext";
+import PageSpinnerContainer from "../styles/PageSpinnerContainer";
+import Buttons from "../styles/Buttons";
+import Button from "../styles/Button";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AssetPageContainer = styled.div`
   margin-top: 3%;
@@ -13,28 +16,26 @@ const AssetPageContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
 `;
-const SpinnerContainer = styled.div`
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  padding-top: 20%;
-`;
+
 function AssetPage() {
   useDefineMonacoTheme();
-  const { isPending } = useAsset();
+  const {asset, isPending} = useAsset()
+  const navigate = useNavigate();
+  const location = useLocation()
 
-  if (isPending)
-    return (
-      <SpinnerContainer>
-        <Spinner size="60" />
-      </SpinnerContainer>
-    );
+  if (isPending) return <PageSpinnerContainer />;
   return (
     <ActiveFileProvider>
       <AssetPageContainer>
         <CodeComponent />
         <AssetInfo />
         <GoBackButton />
+      {asset.assetType === 0 &&  <Buttons>
+          <Button variation="secondary" onClick={() => navigate(`${location.pathname}/edit`)}>
+            EDIT
+          </Button>
+          <Button variation="secondary">DELETE</Button>
+        </Buttons>}
       </AssetPageContainer>
     </ActiveFileProvider>
   );
