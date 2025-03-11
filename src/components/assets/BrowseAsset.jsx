@@ -52,10 +52,12 @@ function BrowseAsset({ asset }) {
     >
       <AssetName>{asset.name}</AssetName>
       <AssetInfo>
-        <UserName>by {asset.userName || "user"}</UserName>
-        <Tag name={asset.language} isMain={true}/>
+        {location.pathname !== "/my-assets" && (
+          <UserName>by {asset.userName || "user"}</UserName>
+        )}
+        <Tag name={asset.language} isMain={true} />
         {asset.tags.map((tag, index) => (
-          <Tag name={tag.name} key={tag.id}/>
+          <Tag name={tag.name} key={tag.id} />
         ))}
       </AssetInfo>
       <Asset

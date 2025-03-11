@@ -18,7 +18,7 @@ import { useRenameFile } from "./useRenameFile";
 import { useEffect, useRef, useState } from "react";
 import findParentFolder from "../../utils/findParentFolder";
 import toast from "react-hot-toast";
-import detectLanguage from "../../utils/detectLanguage";
+import { detectLanguage } from "../../utils/detectLanguage";
 import { useEditedFileContext } from "../../context/EditedFileContext";
 import { useDeleteFile } from "./useDeleteFile";
 import { useEditAsset } from "../assets/useEditAsset";
@@ -139,7 +139,7 @@ function File({ file, readOnly = true }) {
       name: asset.name,
       tagsIds: asset.tags.map((tag) => tag.id),
       assetType: asset.assetType,
-      language: asset.language,
+      language: file.language,
       rootFolderId: asset.rootFolder.id,
       primaryCodeFileId: file.id,
     });

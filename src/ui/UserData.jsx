@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useUser } from "../components/authentication/useUser";
 import { Link } from "react-router-dom";
+import { useCompany } from "../components/companies/useCompany";
 
 const Container = styled.div`
   display: flex;
@@ -10,8 +11,7 @@ const Container = styled.div`
   color: var(--teal);
   font-weight: bolder;
   @media (max-width: 425px) {
-  gap: 0.5rem;
-    
+    gap: 0.5rem;
   }
 `;
 const Avatar = styled.div`
@@ -37,6 +37,7 @@ const Avatar = styled.div`
   }
 `;
 const StyledLink = styled(Link)`
+  align-self: center;
   &:hover {
     color: var(--yellow);
     transition: ease-in-out 300ms;
@@ -47,21 +48,22 @@ const StyledLink = styled(Link)`
   }
   @media (max-width: 320px) {
     font-size: 12px;
-
   }
 `;
 function UserData() {
   const { user } = useUser();
+  const { company, isPending } = useCompany();
   return (
     <Container>
-      {/* {user.role === "User" ? ( */}
+      {!company || isPending ? (
         <StyledLink>
           CREATE OR JOIN
           <br /> COMPANY
         </StyledLink>
-      {/* ) : (
-        "Company Name"
-      )} */}
+      ) : (
+        <StyledLink>{company.name.toUpperCase()}</StyledLink>
+      )}
+
       <Avatar>{user.name[0].toUpperCase()}</Avatar>
     </Container>
   );

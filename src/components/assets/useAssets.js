@@ -6,19 +6,24 @@ import { PAGE_SIZE } from "../../utils/constants";
 export function useAssets() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
+
   //FILTER
-  const filter = !searchParams.get("tagIds") ? null : searchParams.getAll("tagIds").join(",");
-  
-  //TYPE 
+  const filter = !searchParams.get("tagIds")
+    ? null
+    : searchParams.getAll("tagIds").join(",");
+
+  //TYPE
   let type;
-  if(location.pathname.startsWith("/assets"))  type = 1
-  else if(location.pathname.startsWith("/company-assets")) type = 2
+  if (location.pathname.startsWith("/assets")) type = 1;
+  else if (location.pathname.startsWith("/company-assets")) type = 2;
 
   //IS PERSONAL
   const personal = location.pathname.startsWith("/my-assets");
 
-  //SEARCH 
-  const search = !searchParams.get("search") ? null : searchParams.get("search")
+  //SEARCH
+  const search = !searchParams.get("search")
+    ? null
+    : searchParams.get("search");
   //PAGINATION
   const pageNumber =
     !searchParams.get("page") || Number(searchParams.get("page")) < 1
@@ -35,8 +40,17 @@ export function useAssets() {
     data: assets,
     error,
   } = useQuery({
-    queryKey: ["assets", filter,  pageNumber, pageSize, search, type, personal],
-    queryFn: () => getAssets({ filter, type, personal,  pageNumber, pageSize, search }),
+    queryKey: ["assets", filter, pageNumber, pageSize, search, type, personal],
+    queryFn: async () => {
+      return getAssets({
+        filter,
+        type,
+        personal,
+        pageNumber,
+        pageSize,
+        search,
+      });
+    },
   });
 
   return { isPending, assets, error };

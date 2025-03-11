@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
     --pink: #FF32C6;
     --blue: #3FA4FF;
     --purple: #C478FF;
-    --red: #CF1C1C;
+    --red: #9D0000;
     
     --border-radius-s: 7px;
     --border-radius-m: 8px;

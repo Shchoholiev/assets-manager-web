@@ -19,7 +19,7 @@ const variations = {
       background-color: var(--dark-teal);
       transition: ease-in-out 300ms;
     }
-    &:disabled{
+    &:disabled {
       background-color: var(--gray-400);
       color: var(--grey-100);
       box-shadow: none;
@@ -32,7 +32,7 @@ const variations = {
       color: var(--white);
       transition: ease-in-out 300ms;
     }
-    & svg{
+    & svg {
       width: 1.4rem;
       height: 1.4rem;
     }
@@ -44,7 +44,16 @@ const variations = {
       background-color: var(--gray-300);
       transition: ease-in-out 300ms;
     }
-  `
+  `,
+  delete: css`
+    background-color: var(--gray-500);
+    color: var(--gray-100);
+    &:hover {
+      background-color: var(--gray-600);
+      color: var(--red);
+      transition: ease-in-out 300ms;
+    }
+  `,
 };
 const Button = styled.button`
   border: none;

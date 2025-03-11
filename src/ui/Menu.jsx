@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "./Modal";
 import Button from "../styles/Button";
+import { useUser } from "../components/authentication/useUser";
 
 const StyledMenu = styled.div`
   height: 3rem;
@@ -63,7 +64,6 @@ const MobileMenuContainer = styled.div`
   width: 100vw;
   height: 100vh;
   padding-top: 4rem;
-
 `;
 
 const MobileNavLink = styled(NavLink)`
@@ -86,13 +86,13 @@ const MobileNavLink = styled(NavLink)`
   &.active {
     color: var(--yellow);
     background-color: var(--gray-300);
-
   }
 `;
 function Menu() {
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
-  
- 
+  const { user, isPending } = useUser();
+  const userIsEnterprise = user.role.includes("Enterprise");
+  if (isPending) return;
   if (isMobile) {
     return (
       <Modal>
@@ -111,10 +111,16 @@ function Menu() {
             <MobileNavLink to="/add-asset">
               Add Asset <HiPlus />
             </MobileNavLink>
-            <MobileNavLink to="/company-assets">Company Assets</MobileNavLink>
-            <MobileNavLink to="/project/start">
-              Start Project <PiCodeBold />
-            </MobileNavLink>
+            {userIsEnterprise && (
+              <>
+                <MobileNavLink to="/company-assets">
+                  Company Assets
+                </MobileNavLink>
+                <MobileNavLink to="/project/start">
+                  Start Project <PiCodeBold />
+                </MobileNavLink>
+              </>
+            )}
           </MobileMenuContainer>
         </Modal.Window>
       </Modal>
@@ -129,10 +135,14 @@ function Menu() {
       <StyledNavLink to="/add-asset">
         Add Asset <HiPlus />
       </StyledNavLink>
-      <StyledNavLink to="/company-assets">Company Assets</StyledNavLink>
-      <StyledNavLink to="/project/start">
-        Start Project <PiCodeBold />
-      </StyledNavLink>
+      {userIsEnterprise && (
+        <>
+          <StyledNavLink to="/company-assets">Company Assets</StyledNavLink>
+          <StyledNavLink to="/project/start">
+            Start Project <PiCodeBold />
+          </StyledNavLink>
+        </>
+      )}
     </StyledMenu>
   );
 }

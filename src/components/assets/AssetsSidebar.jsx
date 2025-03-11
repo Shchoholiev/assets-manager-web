@@ -41,6 +41,10 @@ const FilterButton = styled(Button)`
 `;
 const SpinnerContainer = styled(AssetsSidebarContainer)`
   justify-content: center;
+  @media (max-width: 768px) {
+    box-shadow: none;
+    background-color: transparent;
+  }
 `;
 function AssetsSidebar() {
   const { isPending, tags } = useTags();
