@@ -7,6 +7,7 @@ export function useUser() {
     queryKey: ["user"],
     queryFn: getCurrentUser,
     refetchInterval: 10 * 60 * 1000,  
+    refetchIntervalInBackground: true,
   });
   return { isPending, user };
 }

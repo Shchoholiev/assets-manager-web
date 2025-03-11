@@ -101,3 +101,49 @@ export async function editAsset({
   }
   return data;
 }
+
+export async function createAsset({
+  name,
+  assetType,
+  language,
+  rootFolderName,
+  primaryCodeFileName,
+}) {
+  const token = localStorage.getItem("accessToken");
+
+  const response = await fetch(`${BASE_URL}/code-assets`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name,
+      assetType,
+      language,
+      rootFolderName,
+      primaryCodeFileName,
+    }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+  return data;
+}
+
+export async function deleteAsset({ id }) {
+  const token = localStorage.getItem("accessToken");
+  const response = await fetch(`${BASE_URL}/code-assets/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+  return data;
+}

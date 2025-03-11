@@ -7,30 +7,44 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export function useAuth() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  let refreshPromise = null;
 
   const refreshAccessToken = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (!refreshToken) {
-      logout();
+    if (refreshPromise) {
+      return refreshPromise;
     }
 
-    const response = await fetch(`${BASE_URL}/tokens/refresh`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ accessToken, refreshToken }),
-    });
-    if (!response.ok) {
-      logout();
-    }
-    const data = await response.json();
-    localStorage.setItem("refreshToken", data.refreshToken)
-    localStorage.setItem("accessToken", data.accessToken)
-    return data;
+    refreshPromise = (async () => {
+      const refreshToken = localStorage.getItem("refreshToken");
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!refreshToken) {
+        logout();
+      }
+
+      const response = await fetch(`${BASE_URL}/tokens/refresh`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken, refreshToken }),
+      });
+
+      if (!response.ok) {
+        logout();
+      }
+
+      const data = await response.json();
+      localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("accessToken", data.accessToken);
+
+      refreshPromise = null; // Reset after completion
+      return data;
+    })();
+
+    return refreshPromise;
   };
+
   const decodeToken = (accessToken = localStorage.getItem("accessToken")) => {
     try {
       const decodedData = jwtDecode(accessToken);
@@ -58,20 +72,20 @@ export function useAuth() {
   };
   const getCurrentUser = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    const accessToken = localStorage.getItem("accessToken");
+    let accessToken = localStorage.getItem("accessToken");
     if (!accessToken || !refreshToken) {
-      return null
+      return null;
     }
 
-    const user = decodeToken(accessToken);
+    let user = decodeToken(accessToken);
     const currentTime = Math.floor(Date.now() / 1000);
-    if (user.exp < currentTime || typeof window !== "undefined") {
+    if (user.exp < currentTime) {
       try {
-        const refreshedData = await refreshAccessToken();
-        const refreshedUser = decodeToken(refreshedData.accessToken);
-        return refreshedUser;
+        const refreshedData = await refreshAccessToken(); 
+        accessToken = refreshedData.accessToken;
+        user = decodeToken(accessToken);
       } catch (error) {
-        return null
+        return null;
       }
     }
 
@@ -85,5 +99,10 @@ export function useAuth() {
     navigate("/");
   };
 
-  return { getCurrentUser, refreshAccessToken, decodeToken, logout };
+  return {
+    getCurrentUser,
+    refreshAccessToken,
+    decodeToken,
+    logout,
+  };
 }

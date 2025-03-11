@@ -17,6 +17,7 @@ import ProjectStartup from "./pages/ProjectStartup";
 import ProjectCompile from "./pages/ProjectCompile";
 import AssetPage from "./pages/AssetPage";
 import EditPage from "./pages/EditPage";
+import AddAssetPage from "./pages/AddAssetPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,10 +40,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="/assets" />} />
             <Route path="assets" element={<Assets />} />
-            <Route path="/my-assets" element={<Assets />} />
-            <Route path="/my-assets/:id" element={<AssetPage />} />
-            <Route path="/my-assets/:id/edit" element={<EditPage />} />
-            <Route path="/company-assets" element={<Assets />} />
+
             <Route path="assets/:id" element={<AssetPage />} />
             <Route path="users/verify" element={<EmailConfirm />} />
             <Route
@@ -52,10 +50,16 @@ function App() {
             <Route path="*" element={<PageNotFound />} />
 
             <Route element={<ProtectedRoute />}>
-            <Route path="user" element={<Assets />} />
-            <Route path="project/start" element={<ProjectStartup />} />
-            <Route path="project/:id/compile" element={<ProjectCompile />} />
-            
+              <Route path="/my-assets" element={<Assets />} />
+              <Route path="/add-asset" element={<AddAssetPage />} />
+              <Route path="/my-assets/:id" element={<AssetPage />} />
+              <Route path="/my-assets/:id/edit" element={<EditPage />} />
+              <Route path="/company-assets" element={<Assets />} />
+              <Route path="/company-assets/:id" element={<AssetPage />} />
+
+              <Route path="user" element={<Assets />} />
+              <Route path="project/start" element={<ProjectStartup />} />
+              <Route path="project/:id/compile" element={<ProjectCompile />} />
             </Route>
           </Route>
 
@@ -77,7 +81,7 @@ function App() {
             duration: 5000,
           },
           style: {
-            fontSize: !isMobile ? "16px" : "12px",
+            fontSize: !isMobile ? "16px" : "14px",
             maxWidth: "500px",
             padding: !isMobile ? "16px 24px" : "12px 20px",
             marginLeft: !isMobile ? "70%" : "40%",
