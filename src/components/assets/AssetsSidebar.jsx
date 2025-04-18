@@ -10,6 +10,7 @@ import { useMediaQuery } from "react-responsive";
 
 const AssetsSidebarContainer = styled.div`
   height: 100%;
+  min-height: 80vh;
   background-color: var(--gray-600);
   border-radius: var(--border-radius-l);
   padding: 2rem;

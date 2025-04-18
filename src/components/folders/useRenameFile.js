@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { editFile as editFileApi } from "../../services/apiFiles";
 import { useActiveFile } from "../../context/ActiveFileContext";
 import toast from "react-hot-toast";
 import { useAsset } from "../assets/useAsset";
+import { editProjectFile } from "../../services/apiProjects";
 
 function updateFileInAsset(folder, updatedFile) {
   if (!folder) return folder;
@@ -29,9 +30,14 @@ export function useRenameFile() {
   const queryClient = useQueryClient();
   const { id } = useParams();
   const { activeFile, setActiveFile } = useActiveFile();
+  const location = useLocation();
+  const isProject = location.pathname.startsWith("/project");
 
   const { mutate: renameFile, isPending } = useMutation({
-    mutationFn: editFileApi,
+    mutationFn: (fileData) =>
+      isProject
+        ? editProjectFile({ projectId: id, ...fileData })
+        : editFileApi(fileData),
     onSuccess: (updatedFile) => {
       queryClient.setQueryData(["asset", id], (oldAsset) => {
         if (!oldAsset) return oldAsset;
@@ -43,11 +49,11 @@ export function useRenameFile() {
         if (updatedFile.id === oldAsset.primaryCodeFile.id) {
           newAsset = {
             ...newAsset,
-            language: updatedFile.language, 
+            language: updatedFile.language,
             primaryCodeFile: {
               ...newAsset.primaryCodeFile,
               language: updatedFile.language,
-              name: updatedFile.name, 
+              name: updatedFile.name,
               text: updatedFile.text,
             },
           };
@@ -57,7 +63,6 @@ export function useRenameFile() {
       if (activeFile?.id === updatedFile.id) {
         setActiveFile((prev) => ({ ...prev, name: updatedFile.name }));
       }
-      
     },
     onError: () => {
       toast.error("Something went wrong! Try again later");

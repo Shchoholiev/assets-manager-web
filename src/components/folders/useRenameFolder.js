@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { editFolder as editFolderApi } from "../../services/apiFolders";
+import { editProjectFolder as editProjectFolderApi } from "../../services/apiProjects";
 
 function updateFolderName(folder, updatedFolder) {
   if (folder.id === updatedFolder.id) {
@@ -18,9 +19,13 @@ function updateFolderName(folder, updatedFolder) {
 export function useRenameFolder() {
   const queryClient = useQueryClient();
   const { id } = useParams();
-
+  const location = useLocation();
+  const isProject = location.pathname.startsWith("/project");
   const { mutate: renameFolder, isPending } = useMutation({
-    mutationFn: editFolderApi,
+    mutationFn: (folderData) =>
+      isProject
+        ? editProjectFolderApi({ projectId: id, ...folderData })
+        : editFolderApi(folderData),
     onSuccess: (updatedFolder) => {
       queryClient.setQueryData(["asset", id], (oldAsset) => {
         if (!oldAsset) return oldAsset;

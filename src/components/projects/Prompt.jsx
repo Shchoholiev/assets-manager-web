@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../../styles/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAskAI } from "./useAskAI";
 import Spinner from "../../ui/Spinner";
 import { usePrompt } from "./usePrompt";
@@ -33,20 +33,27 @@ function Prompt() {
   const queryClient = useQueryClient();
   const { prompt } = usePrompt();
   const { askAI, isPending } = useAskAI();
+  const [promptText, setPromptText] = useState(prompt || "");
+
+
+  useEffect(() => {
+    setPromptText(prompt || "");
+  }, [prompt]);
 
   const handlePromptChange = (e) => {
-    const newPrompt = e.target.value;
-    queryClient.setQueryData(["starter-prompt"], newPrompt);
+    setPromptText(e.target.value);
   };
+
   const handleAskAI = () => {
-    askAI({ prompt });
+    queryClient.setQueryData(["starter-prompt"], promptText);
+    askAI({ prompt: promptText });
   };
 
   return (
     <Container>
       <Text
         placeholder="Describe a project you want to create... "
-        value={prompt}
+        value={promptText}
         onChange={handlePromptChange}
       />
       <Button variation="primary" width="100%" onClick={handleAskAI}>

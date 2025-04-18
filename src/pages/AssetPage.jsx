@@ -17,7 +17,6 @@ function AssetPage() {
   useDefineMonacoTheme();
   const { isPending } = useAsset();
 
-  //TODO IMPLEMENT DELETE ASSET
   //TODO PROJECT CREATION
   if (isPending) return <PageSpinnerContainer />;
   return (

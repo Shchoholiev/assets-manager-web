@@ -2,9 +2,8 @@ import styled from "styled-components";
 import Button from "../../styles/Button";
 import Buttons from "../../styles/Buttons";
 import CodeComponent from "../assets/CodeComponent";
-import { useCombinedProject } from "./useCombinedProject";
 import { useNavigate, useParams } from "react-router-dom";
-import CompilationOutput from "../../styles/CompilationOutput";
+import { Line, OutputContainer } from "../../styles/CompilationOutput";
 import { useState } from "react";
 import { compileProject, downloadZip } from "../../services/apiProjects";
 import Spinner from "../../ui/Spinner";
@@ -18,12 +17,46 @@ const CompilerContainer = styled.div`
 `;
 const CompileButton = styled(Button)`
   align-self: end;
-  width: 20%;
+  width: 30%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
+
+const StyledButtons = styled(Buttons)`
+  @media (max-width: 425px) {
+    grid-gap: 0.5rem;
+    grid-template-columns: 1fr 0.7fr;
+  }
+  @media (max-width: 320px) {
+    grid-template-columns: 1fr;
+  }
+`;
+const parseOutput = (output) => {
+  const lines = output.split("\n");
+
+  const errorRegex = /\berror\s+CS\d+/i;
+  const warningRegex = /\bwarning\s+CS\d+/i;
+  const successRegex = /(build succeeded|compilation successful)/i;
+
+  return lines.map((line, i) => {
+    let type = "info";
+
+    if (errorRegex.test(line)) {
+      type = "error";
+    } else if (warningRegex.test(line)) {
+      type = "warning";
+    } else if (successRegex.test(line)) {
+      type = "success";
+    }
+
+    return { id: i, content: line, type };
+  });
+};
+
 function Compiler() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { combinedProject } = useCombinedProject();
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -33,15 +66,19 @@ function Compiler() {
     setMessage("");
     try {
       const result = await compileProject({ id });
-      setMessage(
-        result.error || result.output || "// COMPILATION SUCCESSFUL !"
-      );
+      setMessage(result.output);
     } catch (error) {
-      setMessage("Compilation failed. Please try again.");
+      console.error("Compilation error:", error);
+      if (error.data?.output) {
+        setMessage(error.data.output);
+      } else {
+        setMessage(error.message || "Compilation failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
   const handleDownload = async () => {
     setDownloading(true);
     try {
@@ -58,17 +95,20 @@ function Compiler() {
       <CompileButton variation="primary" onClick={handleCompile}>
         {loading ? <Spinner /> : "COMPILE"}
       </CompileButton>
-      <CompilationOutput
-        placeholder="// press the button to compile"
-        value={message}
-        disabled={true}
-      />
-      <Buttons>
-        <Button
-          variation="primary"
-          disabled={!message}
-          onClick={handleDownload}
-        >
+      <OutputContainer>
+        {loading
+          ? "// compiling..."
+          : message
+          ? parseOutput(message).map((line) => (
+              <Line key={line.id} type={line.type}>
+                {line.content}
+              </Line>
+            ))
+          : "// press the button to compile"}
+      </OutputContainer>
+
+      <StyledButtons>
+        <Button variation="primary" onClick={handleDownload}>
           {downloading ? <Spinner /> : "DOWNLOAD ZIP"}
         </Button>
         <Button
@@ -77,7 +117,7 @@ function Compiler() {
         >
           CHANGE PROMPT
         </Button>
-      </Buttons>
+      </StyledButtons>
     </CompilerContainer>
   );
 }
