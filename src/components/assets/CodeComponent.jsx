@@ -52,7 +52,6 @@ const FileName = styled.p`
 
 function CodeComponent({ readOnly = true }) {
   const { asset } = useAsset();
-
   const { activeFile } = useActiveFile();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 

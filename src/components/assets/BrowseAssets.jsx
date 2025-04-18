@@ -13,6 +13,7 @@ const BrowseAssetsContainer = styled.div`
   display: grid;
   grid-auto-rows: auto;
   grid-gap: 2rem;
+  height: fit-content;
 `;
 const SpinnerContainer = styled.div`
   height: 80vh;
@@ -25,6 +26,7 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: fit-content;
   @media (max-width: 768px) {
     align-items: center;
   }
@@ -56,7 +58,7 @@ function BrowseAssets() {
       </SpinnerContainer>
     );
   if (!assets.items.length) return <p>No assets found</p>;
-  
+
   return (
     <BrowseAssetsContainer>
       {location.pathname === "/company-assets" && (
@@ -70,11 +72,13 @@ function BrowseAssets() {
         </TitleContainer>
       )}
       {location.pathname === "/my-assets" && (
-        <PageTitle leftAlign={true}>
-          {" "}
-          <HiOutlineRocketLaunch />
-          BROWSE YOUR ASSETS
-        </PageTitle>
+        <TitleContainer>
+          <PageTitle leftAlign={true}>
+            {" "}
+            <HiOutlineRocketLaunch />
+            BROWSE YOUR ASSETS
+          </PageTitle>
+        </TitleContainer>
       )}
       {assets.items.map((asset) => (
         <BrowseAsset asset={asset} key={asset.id} />

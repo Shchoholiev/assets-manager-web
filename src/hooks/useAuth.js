@@ -67,7 +67,8 @@ export function useAuth() {
       return cleanedData;
     } catch (err) {
       console.log("Invalid token:", err);
-      throw new Error(`Invalid token: ${err.message}`);
+      // throw new Error(`Invalid token: ${err.message}`);
+      return null;
     }
   };
   const getCurrentUser = async () => {
@@ -78,10 +79,11 @@ export function useAuth() {
     }
 
     let user = decodeToken(accessToken);
+    if (!user) return null;
     const currentTime = Math.floor(Date.now() / 1000);
     if (user.exp < currentTime) {
       try {
-        const refreshedData = await refreshAccessToken(); 
+        const refreshedData = await refreshAccessToken();
         accessToken = refreshedData.accessToken;
         user = decodeToken(accessToken);
       } catch (error) {
@@ -95,8 +97,6 @@ export function useAuth() {
   const logout = () => {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("accessToken");
-    queryClient.removeQueries();
-    navigate("/");
   };
 
   return {

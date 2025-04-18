@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { deleteFile as deleteFileApi } from "../../services/apiFiles";
 import toast from "react-hot-toast";
+import { deleteProjectFile } from "../../services/apiProjects";
 
 function removeFileById(folder, parentId, fileId) {
   if (folder.id === parentId) {
@@ -27,9 +28,14 @@ function removeFileById(folder, parentId, fileId) {
 export function useDeleteFile() {
   const queryClient = useQueryClient();
   const { id } = useParams();
+  const location = useLocation();
+  const isProject = location.pathname.startsWith("/project");
 
   const { mutate: deleteFile, isPending } = useMutation({
-    mutationFn: deleteFileApi,
+    mutationFn: (fileData) =>
+      isProject
+        ? deleteProjectFile({ projectId: id, ...fileData })
+        : deleteFileApi(fileData),
     onSuccess: (deletedFile) => {
       queryClient.setQueryData(["asset", id], (oldAsset) => {
         if (!oldAsset) return oldAsset;

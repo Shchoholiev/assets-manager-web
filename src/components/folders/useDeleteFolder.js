@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { deleteFolder as deleteFolderApi } from "../../services/apiFolders";
 import toast from "react-hot-toast";
+import { deleteProjectFolder } from "../../services/apiProjects";
 
 function removeFolderById(folder, folderId) {
   if (folder.id === folderId) return null;
@@ -21,9 +22,14 @@ function removeFolderById(folder, folderId) {
 export function useDeleteFolder() {
   const queryClient = useQueryClient();
   const { id } = useParams();
+  const location = useLocation();
+  const isProject = location.pathname.startsWith("/project");
 
   const { mutate: deleteFolder, isPending } = useMutation({
-    mutationFn: deleteFolderApi,
+    mutationFn: (folderData) =>
+      isProject
+        ? deleteProjectFolder({ projectId: id, ...folderData })
+        : deleteFolderApi(folderData),
     onSuccess: (deletedFolder) => {
       toast.success("Folder deleted successfully");
 

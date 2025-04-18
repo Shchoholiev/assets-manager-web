@@ -88,7 +88,7 @@ function AssetInfo() {
       </Tags>
       <p>{asset.description}</p>
       <GoBackButton />
-      {asset.createdById === user.id && (
+      {asset.createdById === user?.id && (
         <Buttons>
           <Button
             variation="secondary"

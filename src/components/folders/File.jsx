@@ -23,6 +23,7 @@ import { useEditedFileContext } from "../../context/EditedFileContext";
 import { useDeleteFile } from "./useDeleteFile";
 import { useEditAsset } from "../assets/useEditAsset";
 import { useMakePrimaryCodeFile } from "./useMakePrimaryCodeFile";
+import { useLocation } from "react-router-dom";
 
 const StyledFile = styled.div`
   min-height: 2rem;
@@ -62,6 +63,8 @@ function File({ file, readOnly = true }) {
   const { editingFileId, setEditingFileId } = useEditedFileContext();
   const [name, setName] = useState(file.name);
   const nameInputRef = useRef(null);
+  const location = useLocation();
+  const isProject = location.pathname.startsWith("/project");
 
   useEffect(() => {
     if (editingFileId === file.id) {
@@ -167,16 +170,17 @@ function File({ file, readOnly = true }) {
       />
       {!readOnly && (
         <Operations isActive={activeFile?.name === file.name}>
-          {file.id === asset.primaryCodeFile.id ? (
-            <Star />
-          ) : (
-            <HiOutlineStar
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePrimaryCodeFile();
-              }}
-            />
-          )}
+          {!isProject &&
+            (file.id === asset.primaryCodeFile.id ? (
+              <Star />
+            ) : (
+              <HiOutlineStar
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrimaryCodeFile();
+                }}
+              />
+            ))}
           <DropdownMenu.Root>
             <StyledToggle>
               <HiOutlineEllipsisVertical />
