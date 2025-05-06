@@ -14,12 +14,12 @@ const StyledSearchInput = styled.input`
   &::placeholder {
     color: var(--gray-200);
   }
-  &:disabled{
+  &:disabled {
     background-color: var(--gray-600);
   }
 
   @media (max-width: 1024px) {
-    width: 42vw;
+    width: 45vw;
   }
   @media (max-width: 768px) {
     width: 100%;
@@ -35,6 +35,9 @@ const Container = styled.div`
   position: relative;
   display: flex;
   justify-content: end;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const StyledSearchIcon = styled(HiOutlineSearch)`
   position: absolute;
@@ -48,10 +51,9 @@ function SearchInput() {
   const location = useLocation();
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const validPaths = ["/assets", "/my-assets", "/company-assets"];
-  const isDisabled = !validPaths.includes(location.pathname)
+  const isDisabled = !validPaths.includes(location.pathname);
   // Handle search input change
   const handleSearchChange = (e) => {
-    
     const newSearch = e.target.value;
     setSearch(newSearch);
 
