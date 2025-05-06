@@ -16,14 +16,15 @@ const StyledHeader = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
+    flex-direction: column;
     gap: 1.8rem;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    & > *:nth-child(3) {
-      flex-basis: 100%;
-    }
   }
+`;
+
+const MobileBox = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;
 function Header() {
   const { user, isPending } = useUser();
@@ -31,10 +32,31 @@ function Header() {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   if (isPending) return;
+  if (isMobile)
+    return (
+      <StyledHeader>
+        <MobileBox>
+          <Logo />
+          {user ? (
+            <UserData />
+          ) : (
+            <Button
+              variation="primary"
+              width={!isMobile ? "10%" : "25%"}
+              onClick={() => navigate("/login")}
+            >
+              Log In
+            </Button>
+          )}
+        </MobileBox>
+
+        <SearchInput />
+      </StyledHeader>
+    );
   return (
     <StyledHeader>
       <Logo />
-      {!isMobile && <SearchInput />}
+      <SearchInput />
       {user ? (
         <UserData />
       ) : (
@@ -46,8 +68,6 @@ function Header() {
           Log In
         </Button>
       )}
-
-      {isMobile && <SearchInput />}
     </StyledHeader>
   );
 }

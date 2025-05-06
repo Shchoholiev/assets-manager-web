@@ -18,6 +18,8 @@ import ProjectCompile from "./pages/ProjectCompile";
 import AssetPage from "./pages/AssetPage";
 import EditPage from "./pages/EditPage";
 import AddAssetPage from "./pages/AddAssetPage";
+import CompanyPage from "./pages/CompanyPage";
+import CreateCompanyPage from "./pages/CreateCompanyPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,7 +59,10 @@ function App() {
               <Route path="/company-assets" element={<Assets />} />
               <Route path="/company-assets/:id" element={<AssetPage />} />
 
-              <Route path="user" element={<Assets />} />
+              <Route path="/company/:name" element={<CompanyPage />} />
+              <Route path="/create-company" element={<CreateCompanyPage />} />
+
+
               <Route path="project/start" element={<ProjectStartup />} />
               <Route path="project/:id/compile" element={<ProjectCompile />} />
             </Route>
