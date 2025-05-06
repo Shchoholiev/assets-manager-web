@@ -6,7 +6,7 @@ trigger:
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'a72f9bfe-d4fc-4719-b147-0b742d4b06f4'
+  azureSubscription: 'Azure subscription 1(41a8d72c-b0d9-45ef-b78c-12163a697ed0)'
 
   # Web app names for dev and prod
   devWebAppName: 'assets-manager-dev'
