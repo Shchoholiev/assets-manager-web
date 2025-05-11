@@ -14,7 +14,7 @@ variables:
 
   # Environment names
   devEnvironmentName: 'assets-manager-dev'
-  prodEnvironmentName: 'Production'
+  prodEnvironmentName: 'assets-manager-prd'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
